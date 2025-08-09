@@ -1,12 +1,15 @@
 package com.rbinternational.neura.timeplus.dto;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
 
 @Entity
 @Getter
 @Setter
+@Builder
 public class TimeRecording {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
