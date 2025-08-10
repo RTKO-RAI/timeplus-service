@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TimeRecordingRepository extends JpaRepository<TimeRecording, Long> {
 
-    List<TimeRecording> findByEmployeeId(Long employeeId);
+    List<TimeRecording> findByEmployeeEmployeeId(Long employeeId);
 }

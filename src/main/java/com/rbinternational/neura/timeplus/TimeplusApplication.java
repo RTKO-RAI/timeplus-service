@@ -3,6 +3,8 @@ package com.rbinternational.neura.timeplus;
 import com.rbinternational.neura.timeplus.service.TimeRecordingService;
 import org.springframework.ai.support.ToolCallbacks;
 import org.springframework.ai.tool.ToolCallback;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +19,9 @@ public class TimeplusApplication {
 	}
 
 	@Bean
-	public List<ToolCallback> tools(TimeRecordingService timeRecordingService){
-		return List.of(ToolCallbacks.from(timeRecordingService));
+	public ToolCallbackProvider tools(TimeRecordingService timeRecordingService) {
+		return MethodToolCallbackProvider.builder()
+				.toolObjects(timeRecordingService)
+				.build();
 	}
 }
