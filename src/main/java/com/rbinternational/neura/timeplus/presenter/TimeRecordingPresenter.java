@@ -1,11 +1,14 @@
 package com.rbinternational.neura.timeplus.presenter;
 
+import com.rbinternational.neura.timeplus.dto.Project;
 import com.rbinternational.neura.timeplus.dto.TimeRecording;
 import com.rbinternational.neura.timeplus.request.InsertTimeRecordingRequest;
 import com.rbinternational.neura.timeplus.service.TimeRecordingService;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class TimeRecordingPresenter {
@@ -16,11 +19,11 @@ public class TimeRecordingPresenter {
         this.timeRecordingService = timeRecordingService;
     }
 
-    public void insertTimeRecord(InsertTimeRecordingRequest request, Long employeeId, Long projectId) {
-        timeRecordingService.insertTimeRecording(request, employeeId, projectId);
+    public void insertTimeRecord(Double workedHours, LocalDate date, String projectId) {
+        timeRecordingService.insertTimeRecording(workedHours, date, projectId);
     }
 
-    public List<TimeRecording> getTimeRecordingsByEmployeeId(Long employeeId) {
-        return timeRecordingService.getRecordedTimeByEmployeeId(employeeId);
+    public Map<String, Double> getTimeRecordingsByEmployeeId() {
+        return timeRecordingService.getRecordedTimeByEmployeeId();
     }
 }
