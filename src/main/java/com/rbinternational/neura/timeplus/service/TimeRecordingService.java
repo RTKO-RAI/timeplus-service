@@ -7,8 +7,6 @@ import com.rbinternational.neura.timeplus.repository.EmployeeRepository;
 import com.rbinternational.neura.timeplus.repository.ProjectRepository;
 import com.rbinternational.neura.timeplus.repository.TimeRecordingRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ai.tool.annotation.Tool;
-import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,8 +30,7 @@ public class TimeRecordingService {
         return date.get(weekFields.weekOfWeekBasedYear());
     }
 
-    @Tool(name = "Insert Time Recording by Project Name, Worked Hours And Registered Date if it is given by user", description = "This tool inserts Time Recording by Project Name, Worked Hours And Registered Date if it is given by user. If date is not given then take today's date")
-    public void insertTimeRecording(@ToolParam(description = "Worked Hours") Double workedHours, @ToolParam(description = "Registered Date") LocalDate date, @ToolParam(description = "Project Name") String projectName) {
+    public void insertTimeRecording(Double workedHours, LocalDate date, String projectName) {
         Employee employee = employeeRepository.findById(1L).orElseThrow();
         Project project = projectRepository.findByProjectName(projectName).orElseThrow();
         LocalDate registeredDate =  date == null ? LocalDate.now() : date;
@@ -46,7 +43,6 @@ public class TimeRecordingService {
         timeRecordingRepository.save(entity);
     }
 
-    @Tool(name = "Get Worked Hours for Employee", description = "Retrieves worked hours for a specific employee. Please when you return response return only worked hours.")
     public Map<String, Double> getRecordedTimeByEmployeeId() {
         List<TimeRecording> recordings =  timeRecordingRepository.findByEmployeeEmployeeId(1L);
         return recordings.stream()
